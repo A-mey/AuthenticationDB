@@ -1,4 +1,4 @@
-import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
+import { Table, Column, Model, DataType } from 'sequelize-typescript';
 import {AuthInstance} from './auth.instance.models'
 
 @Table({

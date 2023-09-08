@@ -1,14 +1,8 @@
-import { CommonSchema } from "../../common/common.schema";
+export class AuthSchema{
 
-export class AuthSchema extends CommonSchema{
+    constructor() { }
 
-
-    constructor() {
-        super()
-        this.ajv = super.getAjv()
-    }
-
-    private authSchema = {
+    readonly authSchema = {
         "type": "object",
         "additionalProperties": false,
         "required": ["USERNAMEHASH", "AUTHPILL"],
@@ -21,6 +15,6 @@ export class AuthSchema extends CommonSchema{
             },
         },
     };
-
-    public authSchemaValidate = this.ajv.compile(this.authSchema)
 }
+
+export default new AuthSchema();

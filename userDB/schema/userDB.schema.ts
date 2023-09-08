@@ -1,47 +1,40 @@
-import { CommonSchema } from "../../common/common.schema";
+class userDBSchema {
 
-export class userDBSchema extends CommonSchema{
+    constructor() {  }
 
-
-    constructor() {
-        super()
-        this.ajv = super.getAjv()
-    }
-
-    private insertUserSchema = {
-        "type": "object",
-        "additionalProperties": false,
-        "required": ["EMAILID", "FIRSTNAME"],
-        "properties" : {
-            "EMAILID": {
-                "type": "string",
-                "format": "email"
-            },
-            "FIRSTNAME": {
-                "type": "string",
-            },
-            "LASTNAME": {
-                "type": "string",
-            },
-            "PERMISSIONLEVEL": {
-                "type": "number",
-            }
-        },
-    };
-
-    private checkUserSchema = {
-        "type": "object",
-        "additionalProperties": false,
-        "required": ["EMAILID"],
-        "properties" : {
-            "EMAILID": {
-                "type": "string",
-                "format": "email"
+    readonly schema = {
+        "insertUser": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["EMAILID", "FIRSTNAME"],
+            "properties" : {
+                "EMAILID": {
+                    "type": "string",
+                    "format": "email"
+                },
+                "FIRSTNAME": {
+                    "type": "string",
+                },
+                "LASTNAME": {
+                    "type": "string",
+                },
+                "PERMISSIONLEVEL": {
+                    "type": "number",
+                }
             },
         },
+        "checkUser": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["EMAILID"],
+            "properties" : {
+                "EMAILID": {
+                    "type": "string",
+                    "format": "email"
+                },
+            },
+        }
     }
-
-    public insertUserSchemaValidate = this.ajv.compile(this.insertUserSchema)
-
-    public checkUserSchemaValidate = this.ajv.compile(this.checkUserSchema)
 }
+
+export default new userDBSchema();

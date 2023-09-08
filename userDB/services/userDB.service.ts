@@ -1,13 +1,14 @@
-import OtpService from '../../common/services/otp.services'
-import {OtpObject} from '../../common/interfaces/otpObject.interface'
-import EncryptionService from '../../common/services/encryption.services'
-import HttpRequestService from '../../common/services/httpRequest.services'
+// import OtpService from '../../common/services/otp.services'
+// import {OtpObject} from '../../common/interfaces/otpObject.interface'
+// import EncryptionService from '../../common/services/encryption.services'
+// import HttpRequestService from '../../common/services/httpRequest.services'
 import userDBDao from '../dao/userDB.dao'
+import { CreateUserDto } from '../dto/create.user.dto';
 
 
 class UserDBService {
-    async insertUserData(user: any){
-        userDBDao.createUser(user).then((data: any) => {
+    async insertUserData(user: CreateUserDto){
+        userDBDao.createUser(user).then((data: unknown) => {
             // console.log("got2", data)
             return new Promise((resolve) => {
                 resolve(data)
