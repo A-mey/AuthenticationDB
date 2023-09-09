@@ -747,3 +747,122 @@
 [32m  label: 'Label🏷️',[39m
 [32m  timestamp: 'Aug-30-2023 01:22:28'[39m
 [32m}[39m
+[32m{[39m
+[32m  meta: {},[39m
+[32m  level: 'info',[39m
+[32m  message: 'HTTP POST /insertUser',[39m
+[32m  label: 'Label🏷️',[39m
+[32m  timestamp: 'Sep-09-2023 02:43:49'[39m
+[32m}[39m
+[32m{[39m
+[32m  meta: {},[39m
+[32m  level: 'info',[39m
+[32m  message: 'HTTP GET /getUsers',[39m
+[32m  label: 'Label🏷️',[39m
+[32m  timestamp: 'Sep-09-2023 02:47:16'[39m
+[32m}[39m
+[32m{[39m
+[32m  meta: {},[39m
+[32m  level: 'info',[39m
+[32m  message: 'HTTP GET /favicon.ico',[39m
+[32m  label: 'Label🏷️',[39m
+[32m  timestamp: 'Sep-09-2023 02:47:16'[39m
+[32m}[39m
+[32m{[39m
+[32m  meta: {},[39m
+[32m  level: 'info',[39m
+[32m  message: 'HTTP GET /getUsers',[39m
+[32m  label: 'Label🏷️',[39m
+[32m  timestamp: 'Sep-09-2023 02:48:27'[39m
+[32m}[39m
+[32m{[39m
+[32m  meta: {},[39m
+[32m  level: 'info',[39m
+[32m  message: 'HTTP GET /getUsers',[39m
+[32m  label: 'Label🏷️',[39m
+[32m  timestamp: 'Sep-09-2023 02:52:59'[39m
+[32m}[39m
+[32m{[39m
+[32m  meta: {},[39m
+[32m  level: 'info',[39m
+[32m  message: 'HTTP GET /getUsers',[39m
+[32m  label: 'Label🏷️',[39m
+[32m  timestamp: 'Sep-09-2023 02:53:56'[39m
+[32m}[39m
+[32m{[39m
+[32m  meta: {},[39m
+[32m  level: 'info',[39m
+[32m  message: 'HTTP GET /getUsers',[39m
+[32m  label: 'Label🏷️',[39m
+[32m  timestamp: 'Sep-09-2023 02:54:43'[39m
+[32m}[39m
+[32m{[39m
+[32m  meta: {},[39m
+[32m  level: 'info',[39m
+[32m  message: 'HTTP POST /insertUser',[39m
+[32m  label: 'Label🏷️',[39m
+[32m  timestamp: 'Sep-09-2023 03:02:58'[39m
+[32m}[39m
+[32m{[39m
+[32m  meta: {},[39m
+[32m  level: 'info',[39m
+[32m  message: 'HTTP GET /getUsers',[39m
+[32m  label: 'Label🏷️',[39m
+[32m  timestamp: 'Sep-09-2023 03:03:07'[39m
+[32m}[39m
+[32m{[39m
+[32m  meta: {},[39m
+[32m  level: 'info',[39m
+[32m  message: 'HTTP POST /insertUser',[39m
+[32m  label: 'Label🏷️',[39m
+[32m  timestamp: 'Sep-09-2023 03:09:03'[39m
+[32m}[39m
+[32m{[39m
+[32m  meta: {},[39m
+[32m  level: 'info',[39m
+[32m  message: 'HTTP POST /insertUser',[39m
+[32m  label: 'Label🏷️',[39m
+[32m  timestamp: 'Sep-09-2023 03:10:39'[39m
+[32m}[39m
+[32m{[39m
+[32m  meta: {},[39m
+[32m  level: 'info',[39m
+[32m  message: 'HTTP POST /getUserByUsername',[39m
+[32m  label: 'Label🏷️',[39m
+[32m  timestamp: 'Sep-09-2023 17:44:11'[39m
+[32m}[39m
+[32m{[39m
+[32m  meta: {},[39m
+[32m  level: 'info',[39m
+[32m  message: 'HTTP POST /checkUser',[39m
+[32m  label: 'Label🏷️',[39m
+[32m  timestamp: 'Sep-09-2023 17:55:25'[39m
+[32m}[39m
+[32m{[39m
+[32m  meta: {},[39m
+[32m  level: 'info',[39m
+[32m  message: 'HTTP GET /getUsers',[39m
+[32m  label: 'Label🏷️',[39m
+[32m  timestamp: 'Sep-09-2023 22:08:34'[39m
+[32m}[39m
+[32m{[39m
+[32m  meta: {},[39m
+[32m  level: 'info',[39m
+[32m  message: 'HTTP POST /insertUser',[39m
+[32m  label: 'Label🏷️',[39m
+[32m  timestamp: 'Sep-09-2023 22:13:03'[39m
+[32m}[39m
+[32m{[39m
+[32m  meta: {},[39m
+[32m  level: 'info',[39m
+[32m  message: 'HTTP GET /getUsers',[39m
+[32m  label: 'Label🏷️',[39m
+[32m  timestamp: 'Sep-09-2023 22:13:11'[39m
+[32m}[39m
+[32m{[39m
+[32m  meta: {},[39m
+[32m  level: 'info',[39m
+[32m  message: 'HTTP POST /insertUser',[39m
+[32m  label: 'Label🏷️',[39m
+[32m  timestamp: 'Sep-10-2023 00:02:49'[39m
+[32m}[39m

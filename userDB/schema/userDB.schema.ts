@@ -6,24 +6,70 @@ class userDBSchema {
         "insertUser": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["EMAILID", "FIRSTNAME"],
+            "required": ["USER", "AUTH"],
+            // "properties" : {
+            //     "EMAILID": {
+            //         "type": "string",
+            //         "format": "email"
+            //     },
+            //     "FIRSTNAME": {
+            //         "type": "string",
+            //     },
+            //     "LASTNAME": {
+            //         "type": "string",
+            //     },
+            //     "PERMISSIONLEVEL": {
+            //         "type": "number",
+            //     }
+            // },
+            "properties": {
+                "USER": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["EMAILID", "FIRSTNAME"],
+                    "properties": {
+                        "EMAILID": {
+                            "type": "string",
+                            "format": "email"
+                        },
+                        "FIRSTNAME": {
+                            "type": "string",
+                        },
+                        "LASTNAME": {
+                            "type": "string",
+                        },
+                        "PERMISSIONLEVEL": {
+                            "type": "number",
+                        }
+                    }
+                },
+                "AUTH": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["USERNAMEHASH", "AUTHPILL"],
+                    "properties": {
+                        "USERNAMEHASH": {
+                            "type": "string",
+                        },
+                        "AUTHPILL": {
+                            "type": "string",
+                        },
+                    }
+                }
+            }
+        },
+        "checkUser": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["EMAILID"],
             "properties" : {
                 "EMAILID": {
                     "type": "string",
                     "format": "email"
                 },
-                "FIRSTNAME": {
-                    "type": "string",
-                },
-                "LASTNAME": {
-                    "type": "string",
-                },
-                "PERMISSIONLEVEL": {
-                    "type": "number",
-                }
             },
         },
-        "checkUser": {
+        "getUserByUsername": {
             "type": "object",
             "additionalProperties": false,
             "required": ["EMAILID"],

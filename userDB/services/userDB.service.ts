@@ -8,12 +8,16 @@ import { CreateUserDto } from '../dto/create.user.dto';
 
 class UserDBService {
     async insertUserData(user: CreateUserDto){
-        userDBDao.createUser(user).then((data: unknown) => {
-            // console.log("got2", data)
-            return new Promise((resolve) => {
-                resolve(data)
-            })
-        });
+        // userDBDao.createUser(user).then((data: unknown) => {
+        //     // console.log("got2", data)
+        //     return new Promise((resolve) => {
+        //         resolve(data)
+        //     })
+        // });
+        const newUser = await userDBDao.createUser2(user);
+        console.log("newUser", newUser);
+        return newUser;
+
     }
 
     // async insertUserData(user: any) {
@@ -30,15 +34,15 @@ class UserDBService {
     // }
 
     async getUsers() {
-        userDBDao.getUsers().then((data) => {
-            // console.log("got2", data)
-            return new Promise((resolve) => {
-                resolve(data)
-            })
-        });
-        // let data = await userDBDao.createUser()
-        // console.log("got2", data);
-        // return data;
+        // userDBDao.getUsers().then((data) => {
+        //     // console.log("got2", data)
+        //     return new Promise((resolve) => {
+        //         resolve(data)
+        //     })
+        // });
+        const data = await userDBDao.getUsers()
+        console.log("got2", data);
+        return data;
         
     }
 }

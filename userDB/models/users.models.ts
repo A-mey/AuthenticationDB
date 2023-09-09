@@ -1,4 +1,4 @@
-import { Table, Column, Model, DataType, Length } from 'sequelize-typescript';
+import { Table, Column, Model, DataType } from 'sequelize-typescript';
 import {UserInstance} from './users.instance.models'
 import { UserCreationAttributes } from './users.creation.models';
 

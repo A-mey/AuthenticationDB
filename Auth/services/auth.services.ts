@@ -1,9 +1,10 @@
 import AuthDao from '../dao/auth.dao'
+import { CreateAuthDto } from '../dto/create.auth.dto';
 
 
 class AuthService {
-    async insertAuthData(auth: any) {
-        return await AuthDao.insertAuth(auth)
+    async insertAuthData(auth: unknown) {
+        return await AuthDao.insertAuth(auth as CreateAuthDto)
     }
 }
 

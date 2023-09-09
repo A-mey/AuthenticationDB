@@ -1,9 +1,10 @@
 /* eslint-disable no-async-promise-executor */
 import { CreateAuthDto } from "../dto/create.auth.dto";
 import debug from "debug";
-import mySqlService from "../../common/services/sql.services";
+import SequelizeService from "../../common/services/sequelize/sequelize.service";
 import {AuthModel} from "../models/auth.models";
 import { catchError } from "../../common/helpers/catch.helper";
+import { Sequelize } from "sequelize-typescript";
 
 const log: debug.IDebugger = debug("app:in-memory-dao");
 
@@ -17,77 +18,87 @@ class AuthDao {
 	}
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	public sequelize: any;
+	public sequelize: Sequelize | undefined;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public User: any;
 
 	async getSequelizeDao(): Promise<void> {
-		this.sequelize = await mySqlService.getSequelize();
+		this.sequelize = await SequelizeService.getSequelize();
 		// log(this.sequelize, "DaoSequelize");
-		this.sequelize.addModels([AuthModel]); 
+		this.sequelize?.addModels([AuthModel]); 
 		// log(this.User);
-		this.sequelize.sync().then(() => {
+		this.sequelize?.sync().then(() => {
 			log("Auth table created successfully!");
 		}).catch(async (error: unknown) => {
 			console.error("Unable to create table : ", await catchError(error));
 		});
 	}
 
-	async insertAuth(authModel: CreateAuthDto) {
+	async insertAuth(authModel: CreateAuthDto) : Promise<AuthModel | null> {
+		let newAuth: AuthModel | null = null;
 		try {
-			let data: boolean = false;
-			AuthModel.create(authModel).then((res: unknown) => {
-				// eslint-disable-next-line @typescript-eslint/no-unused-vars
-				return new Promise((resolve, _reject) => {
-					log(res);
-					data = true;
-					resolve(data);
-				});
-			})
-				.catch((error: unknown) => {
-					return new Promise(async (_resolve, reject) => {
-						log(await catchError(error));
-						data = true;
-						reject(data);
-					});
-				});
+			// let data: boolean = false;
+			// AuthModel.create(authModel).then((res: unknown) => {
+			// 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			// 	return new Promise((resolve) => {
+			// 		log(res);
+			// 		data = true;
+			// 		resolve(data);
+			// 	});
+			// })
+			// 	.catch((error: unknown) => {
+			// 		return new Promise(async (reject) => {
+			// 			log(await catchError(error));
+			// 			data = true;
+			// 			reject(data);
+			// 		});
+			// 	});
+			newAuth = await AuthModel.create(authModel);
+			console.log(newAuth);
 		}
 		catch(error: unknown) {
-			return new Promise(async (_resolve, reject) => {
-				console.log(await catchError(error));
-				return reject(false);
-			});
+			// return new Promise(async (reject) => {
+			// 	console.log(await catchError(error));
+			// 	return reject(false);
+			// });
+			console.log(catchError(error));
 		}
+		return newAuth;
         
 	}
 
 	async checkPill(authModel: CreateAuthDto): Promise<unknown> {
+		let auth: AuthModel | null = null;
 		try {
-			await AuthModel.findOne({ where: { USERNAMEHASH: authModel.USERNAMEHASH, AUTHPILL: authModel.AUTHPILL} })
-				.then((data) => {
-					// eslint-disable-next-line @typescript-eslint/no-unused-vars
-					return new Promise((resolve, _reject) => {
-						if (data) {
-							return resolve(true);
-						}
-						else {
-							return resolve(false);
-						}
-					});
-				})
-				.catch((error: unknown) => {
-					return new Promise(async (_resolve, reject) => {
-						console.log(await catchError(error));
-						return reject(false);
-					});
-				});
+			// await AuthModel.findOne({ where: { USERNAMEHASH: authModel.USERNAMEHASH, AUTHPILL: authModel.AUTHPILL} })
+			// 	.then((data) => {
+			// 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			// 		return new Promise((resolve) => {
+			// 			if (data) {
+			// 				return resolve(true);
+			// 			}
+			// 			else {
+			// 				return resolve(false);
+			// 			}
+			// 		});
+			// 	})
+			// 	.catch((error: unknown) => {
+			// 		return new Promise(async (reject) => {
+			// 			console.log(await catchError(error));
+			// 			return reject(false);
+			// 		});
+			// 	});
+			auth = await AuthModel.findOne({ where: { USERNAMEHASH: authModel.USERNAMEHASH, AUTHPILL: authModel.AUTHPILL} });
+			console.log(auth);
 		}
 		catch(error: unknown) {
-			return new Promise(async (_resolve, reject) => {
-				console.log(await catchError(error));
-				return reject(false);
-			});
+			// return new Promise(async (reject) => {
+			// 	console.log(await catchError(error));
+			// 	return reject(false);
+			// });
+			console.log(catchError(error));
 		}
+		return auth;
         
 	}  
 

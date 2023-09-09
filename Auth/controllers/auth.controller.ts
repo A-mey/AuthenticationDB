@@ -14,12 +14,20 @@ class AuthController {
 
 	async createAuth(req: express.Request, res: express.Response) {
 		try{
-			authDao.insertAuth(req.body).then((data) => {
-				console.log(data, "AuthController:createAuth");
+			// authDao.insertAuth(req.body).then((data) => {
+			// 	console.log(data, "AuthController:createAuth");
+			// 	res.status(201).json({"success": true, code: 201, data: {message: "successful"}});
+			// }).catch((err) => {
+			// 	res.status(500).json({"success": false, code: 500, data: {message: err.message}});
+			// });
+			const data = await authDao.insertAuth(req.body);
+			console.log(data);
+			if (data){
 				res.status(201).json({"success": true, code: 201, data: {message: "successful"}});
-			}).catch((err) => {
-				res.status(500).json({"success": false, code: 500, data: {message: err.message}});
-			});
+			}
+			else {
+				res.status(201).json({"success": false, code: 400, data: {message: "Something went wrong"}});
+			}
 		}
 		catch(e: unknown) {
 			res.status(500).json({"success": false, code: 500, data: {message: await catchError(e)}});
@@ -29,9 +37,9 @@ class AuthController {
 	async checkExistingPill(req: express.Request, res: express.Response) {
 		try{
 			const data = await authDao.checkPill(req.body);
-			const status = data == false? 401: 200;
-			const message = data == false? "Authentication failed": "User authenticated";
-			res.status(status).json({"success": false, code: 200, data: {message: message}});
+			const status = data? 401: 200;
+			const message = data? "Authentication failed": "User authenticated";
+			res.status(status).json({"success": false, code: status, data: {message: message}});
 		}
 		catch(e: unknown) {
 			res.status(500).json({"success": false, code: 500, data: {message: await catchError(e)}});

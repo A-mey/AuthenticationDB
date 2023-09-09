@@ -14,7 +14,7 @@ import {LoginRoutes} from "./userDB/routes/userDB.routes.config";
 import {AuthRoutes} from "./Auth/routes/Auth.routes.config";
 // import { SipSQL } from './common/services/DAL/sql.service.sip';
 // import { SQLService } from './common/services/DAL/sql.service';
-import {validationErrorMiddleware} from "./common/error/validationErrorMiddleware.error";
+// import {validationErrorMiddleware} from "./common/error/validationErrorMiddleware.error";
 import debug from "debug";
 import bodyParser from "body-parser";
 const app: express.Application = express();
@@ -88,7 +88,7 @@ app.get("/", (_req: express.Request, res: express.Response) => {
 	res.status(200).send(runningMessage);
 });
 
-app.use(validationErrorMiddleware);
+// app.use(validationErrorMiddleware);
 app.use(helmet());
 
 

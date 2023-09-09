@@ -3,4 +3,4 @@ export default interface UserAttributes {
     FIRSTNAME: string;
     LASTNAME?: string;
     PERMISSIONLEVEL?: number;
-  };
+  }

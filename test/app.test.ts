@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {app, server} from '../app';
 import supertest from 'supertest';
 import { expect } from 'chai';
@@ -6,7 +7,7 @@ import { Sequelize } from 'sequelize-typescript';
 
 // import {sequelize, dataTypes, checkModelName, checkUniqueIndex, checkPropertyExists} from 'sequelize-test-helpers';
 
-import sqlServices from '../common/services/sql.services';
+import SequelizeService from '../common/services/sequelize/sequelize.service';
 
 describe('LOGIN API DAL', function() {
     // let request: supertest.SuperAgentTest;
@@ -20,7 +21,7 @@ describe('LOGIN API DAL', function() {
     describe('DATABASE CONNECTION', function() {
         
         it('should return sequelize instance', async function () {
-            expect((sqlServices.getSequelize)).to.be.an('Sequelize');
+            expect((SequelizeService.getSequelize)).to.be.an('Sequelize');
         });
     })
 
