@@ -79,7 +79,7 @@ class UsersDao {
         try {
             createdUser = await this.sequelize?.transaction(async (t) => {
                 const newUser = await UserModel.create(createUser.USER, { transaction: t });
-                await AuthModel.create(createUser.AUTH);
+                await AuthModel.create(createUser.AUTH, { transaction: t });
                 return newUser;
               });
             console.log(createdUser, "response");
