@@ -5,6 +5,6 @@ import { Model } from "sequelize-typescript";
 export interface UserInstance
   extends Model<UserAttributes, UserCreationAttributes>,
     UserAttributes {
-      createdAt?: Date;
-      updatedAt?: Date;
+      CREATED_ON: Date;
+      UPDATED_ON: Date;
     }

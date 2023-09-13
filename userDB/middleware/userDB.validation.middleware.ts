@@ -8,13 +8,15 @@ import { CommonSchemaValidator } from "../../common/interfaces/schemaValidation.
 class LoginValidationMiddleware implements CommonSchemaValidator{
     
     checkSchema = async (req: Request, res: express.Response, next: NextFunction) => {
+        console.log("request body", req.body);
         const origin: (keyof typeof UserDBSchema.schema) = req.originalUrl.replace("/", "") as (keyof typeof UserDBSchema.schema);
         const schema = UserDBSchema.schema[origin];
         const validateSchemaFn = await compileSchema.compile(schema)
         const errorRes: errorMessageObject =  await ValidateSchema.validateSchema(req.body, validateSchemaFn);
         if (errorRes.isValid) {
             next();
-          } else {
+        } else {
+            console.log(errorRes.errorMsg)
             const response: response = {success: false, code: 400, data: {message: errorRes.errorMsg}}
             res.status(400).json(response);
         }

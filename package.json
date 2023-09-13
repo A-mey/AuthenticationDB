@@ -9,11 +9,11 @@
     "start": "tsc && node --unhandled-rejections=strict --es-module-specifier-resolution=node ./dist/app.js",
     "debug": "set DEBUG=* && npm run start",
     "dev": "export DEPLOY_STAGE=development && tsc && node --unhandled-rejections=strict ./dist/app.js"
-
   },
   "author": "ameya",
   "license": "ISC",
   "dependencies": {
+    "@sequelize/core": "^7.0.0-alpha.28",
     "@types/body-parser": "^1.19.2",
     "@types/nodemailer": "^6.4.7",
     "@types/nodemon": "^1.19.2",

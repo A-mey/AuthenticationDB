@@ -13,9 +13,11 @@ export class ConnectSequelizeService extends CommonSequelizeService {
 	}
 
 	connectWithRetry() {
+		console.log(this.sequelize)
 		this.sequelize.authenticate().then(() => {
 			console.log("Connection has been established successfully.");
 		}).catch(async (error: unknown) => {
+			console.log(error)
 			console.error("Unable to connect to the database: ", await catchError(error));
 		});
 	}

@@ -46,11 +46,14 @@ class UsersController {
             const emailId = req.body.EMAILID;
             console.log(emailId, "emailId")
             const data = await userDBDao.getUserByUsername(emailId);
-            if (data) {
-                res.status(200).json({"success": true, code: 200, data: {message: "User already exists", data: true}});
+            console.log("UserDBController:checkUserExistance:: ", data)
+            if (data !== null) {
+                console.log("data is not null");
+                return res.status(200).json({"success": true, code: 200, data: {message: "User already exists", data: true}});
             }
             else {
-                res.status(400).json({"success": false, code: 404, data: {message: "No such user found", data: false}});
+                console.log("data is null");
+                return res.status(200).json({"success": false, code: 404, data: {message: "No such user found", data: false}});
             }
         }
         catch(err: unknown) {
