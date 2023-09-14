@@ -1,11 +1,13 @@
-import { Table, Column, Model, DataType, CreatedAt, UpdatedAt } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, CreatedAt, UpdatedAt, ForeignKey } from 'sequelize-typescript';
 // import { Table, Column, DataType, Model, Attribute, Default, PrimaryKey } from '@sequelize/core/decorators-legacy';
 
 import {UserInstance} from './users.instance.models'
 import { UserCreationAttributes } from './users.creation.models';
+import { Title } from './title/title.models';
+import { Gender } from './gender/gender.models';
 
 @Table({
-  timestamps: false,
+  timestamps: true,
   tableName: "tblUsers",
 })
 export class UserModel extends Model<UserInstance, UserCreationAttributes> implements UserInstance{
@@ -17,14 +19,19 @@ export class UserModel extends Model<UserInstance, UserCreationAttributes> imple
     type: DataType.INTEGER,
     primaryKey: true,
     autoIncrement: true,
+    unique: true
   })
   ID!: number
 
+  @ForeignKey(() => Title)
   @Column({
-    type: DataType.STRING(3),
+    type: DataType.INTEGER,
     allowNull: false,
   })
-  TITLE!: title;
+  TITLE!: number;
+
+  // @BelongsTo(() => Title)
+  // title: Title;
 
   @Column({
     type: DataType.STRING(100),
@@ -42,11 +49,12 @@ export class UserModel extends Model<UserInstance, UserCreationAttributes> imple
   @Column(DataType.TEXT)
   LASTNAME!: string;
 
+  @ForeignKey(() => Gender)
   @Column({
-    type: DataType.STRING(1),
+    type: DataType.NUMBER,
     allowNull: false
   })
-  GENDER!: gender;
+  GENDER!: number;
 
   @Column({
     type: DataType.DATEONLY,

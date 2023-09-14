@@ -1,8 +1,9 @@
 export default interface UserAttributes {
-    TITLE: title;
+    ID?: number;
+    TITLE: number;
     EMAILID: string;
     FIRSTNAME: string;
     LASTNAME?: string;
-    GENDER: gender;
+    GENDER: number;
     DOB: Date;
 }
