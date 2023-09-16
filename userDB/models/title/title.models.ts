@@ -5,7 +5,7 @@ import TitleAttributes from './title.attributes.models';
     timestamps: false,
     tableName: "tblTitle",
   })
-export class Title extends Model implements TitleAttributes {
+export class TitleModel extends Model implements TitleAttributes {
     
     @Column({
         type: DataType.INTEGER,

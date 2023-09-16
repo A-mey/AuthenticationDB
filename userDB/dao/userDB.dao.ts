@@ -12,6 +12,8 @@ import {AuthModel} from "../../Auth/models/auth.models"
 // import { sipSQL } from '../../common/services/DAL/sql.service.sip'
 
 import { catchError } from '../../common/helpers/catch.helper';
+import { TitleModel } from '../models/title/title.models';
+import { GenderModel } from '../models/gender/gender.models';
 
 const log: debug.IDebugger = debug('app:in-memory-dao');
 
@@ -39,8 +41,11 @@ class UsersDao {
     async getSequelizeDao(): Promise<void> {
         this.sequelize = await SequelizeService.getSequelize();
         log(this.sequelize, "DaoSequelize");
+        this.sequelize?.addModels([TitleModel]);
+		this.sequelize?.addModels([GenderModel]);
         this.sequelize?.addModels([UserModel]); 
-		this.sequelize?.addModels([AuthModel]); 
+		this.sequelize?.addModels([AuthModel]);
+		
         // log(this.User);
         this.sequelize?.sync().then(() => {
             log('User table created successfully!');

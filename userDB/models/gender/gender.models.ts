@@ -3,9 +3,9 @@ import GenderAttributes from './gender.attributes.models';
 
 @Table({
     timestamps: false,
-    tableName: "tblTitle",
+    tableName: "tblGender",
   })
-export class Gender extends Model implements GenderAttributes {
+export class GenderModel extends Model implements GenderAttributes {
     
     @Column({
         type: DataType.INTEGER,
