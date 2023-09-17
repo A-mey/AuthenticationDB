@@ -28,17 +28,13 @@ class userDBSchema {
                     "additionalProperties": false,
                     "required": ["EMAILID", "FIRSTNAME", "TITLE", "GENDER", "DOB"],
                     "properties": {
-                        "SALUTATION": {
-                           "type": "string",
-                           "enum": ["Mr", "Ms", "Mrs"]
-                        },
                         "EMAILID": {
                             "type": "string",
                             "format": "email"
                         },
                         "TITLE": {
-                            "type": "string",
-                            "enum": ["Mr","Ms","Mrs"] 
+                            "type": "number",
+                            "enum": [1, 2, 3] 
                         },
                         "FIRSTNAME": {
                             "type": "string",
@@ -47,8 +43,8 @@ class userDBSchema {
                             "type": "string",
                         },
                         "GENDER": {
-                            "type": "string",
-                            "enum": ["M", "F"]
+                            "type": "number",
+                            "enum": [1, 2]
                         },
                         "DOB": {
                             "type": "string",
