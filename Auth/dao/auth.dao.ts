@@ -68,6 +68,7 @@ class AuthDao {
 	}
 
 	async checkPill(authModel: CreateAuthDto): Promise<unknown> {
+		console.log("auth", authModel);
 		let auth: AuthModel | null = null;
 		try {
 			// await AuthModel.findOne({ where: { USERNAMEHASH: authModel.USERNAMEHASH, AUTHPILL: authModel.AUTHPILL} })
