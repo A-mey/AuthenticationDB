@@ -5,6 +5,7 @@ import SequelizeService from "../../common/services/sequelize/sequelize.service"
 import {AuthModel} from "../models/auth.models";
 import { catchError } from "../../common/helpers/catch.helper";
 import { Sequelize } from "sequelize-typescript";
+import { Op } from "sequelize";
 
 const log: debug.IDebugger = debug("app:in-memory-dao");
 
@@ -88,7 +89,8 @@ class AuthDao {
 			// 			return reject(false);
 			// 		});
 			// 	});
-			auth = await AuthModel.findOne({ where: { USERNAMEHASH: authModel.USERNAMEHASH, AUTHPILL: authModel.AUTHPILL} });
+			// auth = await AuthModel.findOne({ where: { USERNAMEHASH: authModel.USERNAMEHASH, AUTHPILL: authModel.AUTHPILL} });
+			auth = await AuthModel.findOne({ where: { USERNAMEHASH: authModel.USERNAMEHASH, AUTHPILL: { [Op.startsWith]: authModel.AUTHPILL }} });
 			console.log(auth);
 		}
 		catch(error: unknown) {
