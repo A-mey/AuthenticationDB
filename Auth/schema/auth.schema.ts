@@ -5,12 +5,12 @@ export class AuthSchema{
     readonly authSchema = {
         "type": "object",
         "additionalProperties": false,
-        "required": ["USERNAMEHASH", "AUTHPILL"],
+        "required": ["USERNAMEHASH", "USERAUTH"],
         "properties" : {
             "USERNAMEHASH": {
                 "type": "string",
             },
-            "AUTHPILL": {
+            "USERAUTH": {
                 "type": "string",
             },
         },

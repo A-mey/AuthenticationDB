@@ -6,6 +6,7 @@ import {AuthModel} from "../models/auth.models";
 import { catchError } from "../../common/helpers/catch.helper";
 import { Sequelize } from "sequelize-typescript";
 import { Op } from "sequelize";
+import { CheckAuthDto } from "../dto/check.auth.dto";
 
 const log: debug.IDebugger = debug("app:in-memory-dao");
 
@@ -68,7 +69,7 @@ class AuthDao {
         
 	}
 
-	async checkPill(authModel: CreateAuthDto): Promise<unknown> {
+	async checkPill(checkAuthModel: CheckAuthDto): Promise<unknown> {
 		let auth: AuthModel | null = null;
 		try {
 			// await AuthModel.findOne({ where: { USERNAMEHASH: authModel.USERNAMEHASH, AUTHPILL: authModel.AUTHPILL} })
@@ -90,8 +91,13 @@ class AuthDao {
 			// 		});
 			// 	});
 			// auth = await AuthModel.findOne({ where: { USERNAMEHASH: authModel.USERNAMEHASH, AUTHPILL: authModel.AUTHPILL} });
-			auth = await AuthModel.findOne({ where: { USERNAMEHASH: authModel.USERNAMEHASH, AUTHPILL: { [Op.startsWith]: authModel.AUTHPILL }} });
-			console.log(auth);
+			// auth = await AuthModel.findOne({ where: { USERNAMEHASH: checkAuthModel.USERNAMEHASH, AUTHPILL: { [Op.startsWith]: checkAuthModel.USERAUTH }} });
+			auth = await AuthModel.findOne(
+				{ 
+					attributes: ['AUTHPILL'],
+					where: { USERNAMEHASH: checkAuthModel.USERNAMEHASH, AUTHPILL: { [Op.startsWith]: checkAuthModel.USERAUTH }} 
+				});
+			console.log(auth?.AUTHPILL);
 		}
 		catch(error: unknown) {
 			// return new Promise(async (reject) => {

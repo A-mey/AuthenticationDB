@@ -37,9 +37,9 @@ class AuthController {
 	async checkExistingPill(req: express.Request, res: express.Response) {
 		try{
 			const data = await authDao.checkPill(req.body);
-			const status = data? 401: 200;
-			const message = data? "Authentication failed": "User authenticated";
-			res.status(status).json({"success": false, code: status, data: {message: message}});
+			const status = data? 200: 401;
+			const message = data? "User authenticated" : "Authentication failed";
+			res.status(status).json({"success": false, code: status, data: {message: message, data: data}});
 		}
 		catch(e: unknown) {
 			res.status(500).json({"success": false, code: 500, data: {message: await catchError(e)}});

@@ -8,7 +8,9 @@
     "test-debug": "export DEBUG=* && npm test",
     "start": "tsc && node --unhandled-rejections=strict --es-module-specifier-resolution=node ./dist/app.js",
     "debug": "set DEBUG=* && npm run start",
-    "dev": "export DEPLOY_STAGE=development && tsc && node --unhandled-rejections=strict ./dist/app.js"
+    "dev": "export DEPLOY_STAGE=development && tsc && node --unhandled-rejections=strict ./dist/app.js",
+    "dev-boilerplate": "export DEPLOY_STAGE=development && concurrently -k \"tsc -p ./ -w\" \"nodemon ./dist/app.js\"",
+    "watch": "export DEPLOY_STAGE=development && ts-node-dev --respawn app.ts"
   },
   "author": "ameya",
   "license": "ISC",
@@ -20,6 +22,7 @@
     "@types/otp-generator": "^4.0.0",
     "argon2": "^0.30.2",
     "body-parser": "^1.20.2",
+    "concurrently": "^8.2.1",
     "cors": "^2.8.5",
     "debug": "^4.3.4",
     "express": "^4.18.2",
@@ -30,6 +33,7 @@
     "sequelize-test-helpers": "^1.4.3",
     "sequelize-typescript": "^2.1.5",
     "shortid": "^2.2.16",
+    "ts-node-dev": "^2.0.0",
     "winston": "^3.8.2"
   },
   "devDependencies": {
