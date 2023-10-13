@@ -12,8 +12,9 @@ import { catchError } from "../../common/helpers/catch.helper";
 // const log: debug.IDebugger = debug("app:users-controller");
 class AuthController {
 
-	async createAuth(req: express.Request, res: express.Response) {
+	createAuth = async (req: express.Request, res: express.Response) => {
 		try{
+			// DO NOT UNCOMMENT
 			// authDao.insertAuth(req.body).then((data) => {
 			// 	console.log(data, "AuthController:createAuth");
 			// 	res.status(201).json({"success": true, code: 201, data: {message: "successful"}});
@@ -34,7 +35,7 @@ class AuthController {
 		}
 	}
 
-	async checkExistingPill(req: express.Request, res: express.Response) {
+	checkExistingPill = async (req: express.Request, res: express.Response) => {
 		try{
 			const data = await authDao.checkPill(req.body);
 			const status = data? 200: 401;

@@ -13,7 +13,7 @@ import userDBService from '../services/userDB.service';
 // const log: debug.IDebugger = debug('app:users-controller');
 class UsersController {
 
-    async createNewUser(req: express.Request, res: express.Response) {
+    createNewUser = async (req: express.Request, res: express.Response) => {
         try{
             // console.log(req.body, "request")
             const data = await userDBService.insertUserData(req.body);
@@ -30,7 +30,7 @@ class UsersController {
         }
     }
 
-    async getUsers(_req: express.Request, res: express.Response) {
+    getUsers = async (_req: express.Request, res: express.Response) => {
         try{
             const data = await userDBService.getUsers();
             console.log("data", data);
@@ -41,7 +41,7 @@ class UsersController {
         }      
     }
 
-    async checkUserExistance(req: express.Request, res: express.Response) {
+    checkUserExistance = async (req: express.Request, res: express.Response) => {
         try {
             const emailId = req.body.EMAILID;
             console.log(emailId, "emailId")
@@ -61,7 +61,7 @@ class UsersController {
         }  
     }
 
-    async getUser(req: express.Request, res: express.Response) {
+    getUser = async (req: express.Request, res: express.Response) => {
         try{
             const emailId = req.body.EMAILID;
             const data = await userDBDao.getUserByUsername(emailId);
@@ -76,9 +76,6 @@ class UsersController {
             res.status(500).json({"success": false, code: 500, data: {message: catchError(err)}});
         } 
     }
-    
-
-
 }
 
 export default new UsersController();

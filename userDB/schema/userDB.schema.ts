@@ -7,21 +7,6 @@ class userDBSchema {
             "type": "object",
             "additionalProperties": false,
             "required": ["USER", "AUTH"],
-            // "properties" : {
-            //     "EMAILID": {
-            //         "type": "string",
-            //         "format": "email"
-            //     },
-            //     "FIRSTNAME": {
-            //         "type": "string",
-            //     },
-            //     "LASTNAME": {
-            //         "type": "string",
-            //     },
-            //     "PERMISSIONLEVEL": {
-            //         "type": "number",
-            //     }
-            // },
             "properties": {
                 "USER": {
                     "type": "object",

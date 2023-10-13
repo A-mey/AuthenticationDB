@@ -3,7 +3,7 @@ import { CreateAuthDto } from '../dto/create.auth.dto';
 
 
 class AuthService {
-    async insertAuthData(auth: unknown) {
+    insertAuthData = async (auth: unknown) => {
         return await AuthDao.insertAuth(auth as CreateAuthDto)
     }
 }

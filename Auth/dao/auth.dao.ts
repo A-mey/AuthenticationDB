@@ -11,6 +11,13 @@ import { CheckAuthDto } from "../dto/check.auth.dto";
 const log: debug.IDebugger = debug("app:in-memory-dao");
 
 class AuthDao {
+	// DO NOT UNCOMMENT
+		// authDao.insertAuth(req.body).then((data) => {
+		// 	console.log(data, "AuthController:createAuth");
+		// 	res.status(201).json({"success": true, code: 201, data: {message: "successful"}});
+		// }).catch((err) => {
+		// 	res.status(500).json({"success": false, code: 500, data: {message: err.message}});
+		// });
 	// authTable: Array<CreateAuthDto> = [];  
 
 	constructor() {        
@@ -24,7 +31,7 @@ class AuthDao {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public User: any;
 
-	async getSequelizeDao(): Promise<void> {
+	getSequelizeDao = async (): Promise<void> => {
 		this.sequelize = await SequelizeService.getSequelize();
 		// log(this.sequelize, "DaoSequelize");
 		this.sequelize?.addModels([AuthModel]); 
@@ -36,62 +43,22 @@ class AuthDao {
 		});
 	}
 
-	async insertAuth(authModel: CreateAuthDto) : Promise<AuthModel | null> {
+	insertAuth = async (authModel: CreateAuthDto) : Promise<AuthModel | null> => {
 		let newAuth: AuthModel | null = null;
 		try {
-			// let data: boolean = false;
-			// AuthModel.create(authModel).then((res: unknown) => {
-			// 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			// 	return new Promise((resolve) => {
-			// 		log(res);
-			// 		data = true;
-			// 		resolve(data);
-			// 	});
-			// })
-			// 	.catch((error: unknown) => {
-			// 		return new Promise(async (reject) => {
-			// 			log(await catchError(error));
-			// 			data = true;
-			// 			reject(data);
-			// 		});
-			// 	});
 			newAuth = await AuthModel.create(authModel);
 			console.log(newAuth);
 		}
 		catch(error: unknown) {
-			// return new Promise(async (reject) => {
-			// 	console.log(await catchError(error));
-			// 	return reject(false);
-			// });
 			console.log(catchError(error));
 		}
 		return newAuth;
         
 	}
 
-	async checkPill(checkAuthModel: CheckAuthDto): Promise<unknown> {
+	checkPill = async (checkAuthModel: CheckAuthDto): Promise<unknown> => {
 		let auth: AuthModel | null = null;
 		try {
-			// await AuthModel.findOne({ where: { USERNAMEHASH: authModel.USERNAMEHASH, AUTHPILL: authModel.AUTHPILL} })
-			// 	.then((data) => {
-			// 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			// 		return new Promise((resolve) => {
-			// 			if (data) {
-			// 				return resolve(true);
-			// 			}
-			// 			else {
-			// 				return resolve(false);
-			// 			}
-			// 		});
-			// 	})
-			// 	.catch((error: unknown) => {
-			// 		return new Promise(async (reject) => {
-			// 			console.log(await catchError(error));
-			// 			return reject(false);
-			// 		});
-			// 	});
-			// auth = await AuthModel.findOne({ where: { USERNAMEHASH: authModel.USERNAMEHASH, AUTHPILL: authModel.AUTHPILL} });
-			// auth = await AuthModel.findOne({ where: { USERNAMEHASH: checkAuthModel.USERNAMEHASH, AUTHPILL: { [Op.startsWith]: checkAuthModel.USERAUTH }} });
 			auth = await AuthModel.findOne(
 				{ 
 					attributes: ['AUTHPILL'],
@@ -100,10 +67,6 @@ class AuthDao {
 			console.log(auth?.AUTHPILL);
 		}
 		catch(error: unknown) {
-			// return new Promise(async (reject) => {
-			// 	console.log(await catchError(error));
-			// 	return reject(false);
-			// });
 			console.log(catchError(error));
 		}
 		return auth;

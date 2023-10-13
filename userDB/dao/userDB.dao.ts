@@ -7,20 +7,13 @@ import {UserModel} from '../models/users.models'
 import { Sequelize } from 'sequelize-typescript';
 import {AuthModel} from "../../Auth/models/auth.models"
 
-// import  DataTypes  from 'Sequelize';
-// import { poolPromise } from '../../common/services/DAL/sql.service';
-// import { sipSQL } from '../../common/services/DAL/sql.service.sip'
-
 import { catchError } from '../../common/helpers/catch.helper';
 import { TitleModel } from '../models/title/title.models';
 import { GenderModel } from '../models/gender/gender.models';
 
 const log: debug.IDebugger = debug('app:in-memory-dao');
 
-class UsersDao {
-    // users: Array<CreateUserDto> = [];
-    // private Users = UserModel.getUser().Model;
-    
+class UsersDao {    
 
     constructor() {
         // let sequelize = mySqlService.getSequelize();
@@ -38,9 +31,9 @@ class UsersDao {
     public sequelize: Sequelize | undefined;
     // public User: any;
 
-    async getSequelizeDao(): Promise<void> {
+    getSequelizeDao = async (): Promise<void> => {
         this.sequelize = await SequelizeService.getSequelize();
-        log(this.sequelize, "DaoSequelize");
+        // log(this.sequelize, "DaoSequelize");
         this.sequelize?.addModels([TitleModel]);
 		this.sequelize?.addModels([GenderModel]);
         this.sequelize?.addModels([UserModel]); 
@@ -54,7 +47,7 @@ class UsersDao {
             });
     }
 
-    async getUsers(): Promise<UserModel[] | string> {
+    getUsers = async (): Promise<UserModel[] | string> => {
         let users: UserModel[] = [];
         try {
             users = await UserModel.findAll();
@@ -67,19 +60,7 @@ class UsersDao {
         
     }
 
-    // async createUser(user: CreateUserDto): Promise<UserModel | null> {
-    //     let createdUser: UserModel | null = null;
-    //     try {
-    //         createdUser = await UserModel.create(user);
-    //         console.log(createdUser, "response");
-    //     }
-    //     catch(error: unknown) {
-    //         console.log(catchError(error));
-    //     }
-    //     return createdUser;
-    // }
-
-    async createUser2(createUser: CreateUserDto): Promise<UserModel | undefined> {
+    createUser = async (createUser: CreateUserDto): Promise<UserModel | undefined> => {
         let createdUser: UserModel | undefined;
         try {
             createdUser = await this.sequelize?.transaction(async (t) => {
@@ -95,19 +76,7 @@ class UsersDao {
         return createdUser;
     }
 
-    // async findUserByUsername(emailId: string): Promise<UserModel | null> {
-    //     let user: UserModel | null = null;
-    //     try {
-    //         user = await UserModel.findOne({ where: { EMAILID: emailId} });
-    //     }
-    //     catch(error: unknown) {
-    //         console.log(catchError(error));
-    //     }
-    //     return user;
-        
-    // }
-
-    async getUserByUsername(emailId: string): Promise<UserModel | null> {
+    getUserByUsername = async (emailId: string): Promise<UserModel | null> => {
         let user: UserModel | null = null;
         try {
             user = await UserModel.findOne({ where: { EMAILID: emailId} });
