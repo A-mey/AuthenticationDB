@@ -53,7 +53,7 @@ class UsersController {
             }
             else {
                 console.log("data is null");
-                return res.status(200).json({"success": false, code: 404, data: {message: "No such user found", data: false}});
+                return res.status(404).json({"success": false, code: 404, data: {message: "No such user found", data: false}});
             }
         }
         catch(err: unknown) {
