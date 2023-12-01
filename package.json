@@ -10,7 +10,8 @@
     "debug": "set DEBUG=* && npm run start",
     "dev": "export DEPLOY_STAGE=development && tsc && node --unhandled-rejections=strict ./dist/app.js",
     "dev-boilerplate": "export DEPLOY_STAGE=development && concurrently -k \"tsc -p ./ -w\" \"nodemon ./dist/app.js\"",
-    "watch": "export DEPLOY_STAGE=development && ts-node-dev --respawn app.ts"
+    "watch-qc": "export DEPLOY_STAGE=qc && ts-node-dev --respawn app.ts",
+    "watch-prod": "export DEPLOY_STAGE=prod && ts-node-dev --respawn app.ts"
   },
   "author": "ameya",
   "license": "ISC",
@@ -29,6 +30,8 @@
     "express-winston": "^4.2.0",
     "helmet": "^7.0.0",
     "mssql": "^9.0.1",
+    "pg": "^8.11.3",
+    "postgres": "^3.4.3",
     "reflect-metadata": "^0.1.13",
     "sequelize-test-helpers": "^1.4.3",
     "sequelize-typescript": "^2.1.5",

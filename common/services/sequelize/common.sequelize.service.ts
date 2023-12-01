@@ -7,6 +7,7 @@ export class CommonSequelizeService {
 	private password = process.env.PASSWORD;
 	private host = process.env.HOST;
 	private dialect: Dialect = process.env.DIALECT as Dialect;
+    private dbUrl = process.env.DATABASE_URL
 
 	public sequelize: Sequelize = new Sequelize(
         this.database,
