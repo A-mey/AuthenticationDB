@@ -3,7 +3,7 @@ import { CreateAuthDto } from "../dto/create.auth.dto";
 import debug from "debug";
 import SequelizeService from "../../common/services/sequelize/sequelize.service";
 import {AuthModel} from "../models/auth.models";
-import { catchError } from "../../common/helpers/catch.helper";
+import { catchError } from "../../common/utils/catch.util";
 import { Sequelize } from "sequelize-typescript";
 import { Op } from "sequelize";
 import { CheckAuthDto } from "../dto/check.auth.dto";

@@ -7,7 +7,7 @@ import express from 'express';
 // import userDBService from '../services/userDB.service';
 import userDBDao from '../dao/userDB.dao';
 
-import { catchError } from '../../common/helpers/catch.helper';
+import { catchError } from '../../common/utils/catch.util';
 import userDBService from '../services/userDB.service';
 
 // const log: debug.IDebugger = debug('app:users-controller');

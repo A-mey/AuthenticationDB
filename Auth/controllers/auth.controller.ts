@@ -6,7 +6,7 @@ import express from "express";
 
 // import authService from "../services/auth.services";
 import authDao from "../dao/auth.dao";
-import { catchError } from "../../common/helpers/catch.helper";
+import { catchError } from "../../common/utils/catch.util";
 // import authDao from '../dao/userDB.dao';
 
 // const log: debug.IDebugger = debug("app:users-controller");

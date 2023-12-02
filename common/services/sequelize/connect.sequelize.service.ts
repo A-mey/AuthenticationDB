@@ -1,4 +1,4 @@
-import { catchError } from "../../helpers/catch.helper";
+import { catchError } from "../../utils/catch.util";
 import { CommonSequelizeService } from "./common.sequelize.service"
 
 export class ConnectSequelizeService extends CommonSequelizeService {

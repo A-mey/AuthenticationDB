@@ -2,6 +2,7 @@ import { CommonRoutesConfig } from "../../common/common.routes.config";
 import UserDBController from '../controllers/userDB.controller';
 import userDBValidationMiddleware from "../middleware/userDB.validation.middleware";
 import express from 'express';
+import IdMiddleware from "../middleware/id.middleware"
 
 
 export class LoginRoutes extends CommonRoutesConfig {
@@ -10,9 +11,12 @@ export class LoginRoutes extends CommonRoutesConfig {
     }
     configureRoutes() {
 
+        this.app.use(userDBValidationMiddleware.checkSchema);
+
+        this.app.use(IdMiddleware.createRequestId);
+
         this.app.route('/insertUser')
             .post(
-                userDBValidationMiddleware.checkSchema,
                 UserDBController.createNewUser
             );
 
@@ -23,13 +27,11 @@ export class LoginRoutes extends CommonRoutesConfig {
         
         this.app.route('/checkUser')
             .post(
-                userDBValidationMiddleware.checkSchema,
                 UserDBController.checkUserExistance
             );
 
         this.app.route('/getUserByUsername')
             .post(
-                userDBValidationMiddleware.checkSchema,
                 UserDBController.getUser
             );
         return this.app;

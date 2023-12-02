@@ -7,7 +7,7 @@ import {UserModel} from '../models/users.models'
 import { Sequelize } from 'sequelize-typescript';
 import {AuthModel} from "../../Auth/models/auth.models"
 
-import { catchError } from '../../common/helpers/catch.helper';
+import { catchError } from '../../common/utils/catch.util';
 import { TitleModel } from '../models/title/title.models';
 import { GenderModel } from '../models/gender/gender.models';
 
