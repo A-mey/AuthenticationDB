@@ -1,7 +1,6 @@
 import express from "express";
 import * as http from "http";
 import * as dotenv from "dotenv";
-// const dotenvResult = dotenv.config();
 const dotenvResult = dotenv.config({ path: `.env.${process.env.DEPLOY_STAGE}` })
 if (dotenvResult.error) {
 	throw dotenvResult.error;
@@ -11,19 +10,15 @@ import * as expressWinston from "express-winston";
 import cors from "cors";
 import {CommonRoutesConfig} from "./common/common.routes.config";
 import {LoginRoutes} from "./userDB/routes/userDB.routes.config";
-import {AuthRoutes} from "./Auth/routes/Auth.routes.config";
-// import { SipSQL } from './common/services/DAL/sql.service.sip';
-// import { SQLService } from './common/services/DAL/sql.service';
-// import {validationErrorMiddleware} from "./common/error/validationErrorMiddleware.error";
 import debug from "debug";
 import bodyParser from "body-parser";
 const app: express.Application = express();
 const server: http.Server = http.createServer(app);
 const port = process.env.PORT;
 const routes: Array<CommonRoutesConfig> = [];
-// const sqlConnections: Array<SQLService> = [];
 const debugLog: debug.IDebugger = debug("app");
 import helmet from "helmet";
+import httpContext from "express-http-context";
 
 
 // here we are adding middleware to parse all incoming requests as JSON 
@@ -34,6 +29,8 @@ app.use(bodyParser.json());
 app.use(cors({
 	origin: '*'
 }));
+
+app.use(httpContext.middleware);
 
 // here we are preparing the expressWinston logging middleware configuration,
 // which will automatically log all HTTP requests handled by Express.js
@@ -71,7 +68,6 @@ app.use(expressWinston.logger(loggerOptions));
 // here we are adding the UserRoutes to our array,
 // after sending the Express.js application object to have the routes added to our app!
 routes.push(new LoginRoutes(app));
-routes.push(new AuthRoutes(app));
 
 app.use(expressWinston.errorLogger({
 	transports: [

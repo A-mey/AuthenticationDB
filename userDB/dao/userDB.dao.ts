@@ -5,7 +5,7 @@ import debug from 'debug';
 import { SequelizeService } from '../../common/services/sequelize/sequelize.service'
 import {UserModel} from '../models/users.models'
 import { Sequelize } from 'sequelize-typescript';
-import {AuthModel} from "../../Auth/models/auth.models"
+import {AuthModel} from "../models/auth/auth.model"
 
 import { catchError } from '../../common/utils/catch.util';
 import { TitleModel } from '../models/title/title.models';
