@@ -53,7 +53,6 @@ class AuthDao {
 			console.log(catchError(error));
 		}
 		return newAuth;
-        
 	}
 
 	checkPill = async (checkAuthModel: CheckAuthDto): Promise<unknown> => {

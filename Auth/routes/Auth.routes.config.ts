@@ -12,7 +12,6 @@ export class AuthRoutes extends CommonRoutesConfig {
 
 		this.app.route("/createNewAuth")
 			.post(
-				// validate({ body: AuthSchema.createNewAuth }),
 				authValidationMiddleware.checkSchema,
 				AuthController.createAuth
 			);

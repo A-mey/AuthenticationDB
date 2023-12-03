@@ -1,10 +1,8 @@
-// we import express to add types to the request/response objects from our controller functions
 import express from 'express';
 
 // we use debug with a custom context as described in Part 1
 // import debug from 'debug';
 
-// import userDBService from '../services/userDB.service';
 import userDBDao from '../dao/userDB.dao';
 
 import { catchError } from '../../common/utils/catch.util';
@@ -15,25 +13,17 @@ class UsersController {
 
     createNewUser = async (req: express.Request, res: express.Response) => {
         try{
-            // console.log(req.body, "request")
-            const data = await userDBService.insertUserData(req.body);
-            if (data) {
-                res.status(201).json({"success": true, code: 201, data: {message:"User added successfully"}});
-            }
-            else {
-                res.status(500).json({"success": false, code: 500, data: {message: "Something went wrong"}});
-            }
-            console.log("data", data);
+            await userDBService.insertUserData(req.body);
+            res.status(201).json({"success": true, code: 201, data: {message:"User added successfully"}});
         }
-        catch(err: unknown) {
-            res.status(500).json({"success": false, code: 500, data: {message: catchError(err)}});
+        catch(error: unknown) {
+            res.status(500).json({"success": false, code: 500, data: {message: "Something went wrong"}});
         }
     }
 
     getUsers = async (_req: express.Request, res: express.Response) => {
         try{
             const data = await userDBService.getUsers();
-            console.log("data", data);
             res.status(200).json({"success": false, code: 200, data: {message:"", data: data}});
         }
         catch(err: unknown) {
@@ -44,11 +34,8 @@ class UsersController {
     checkUserExistance = async (req: express.Request, res: express.Response) => {
         try {
             const emailId = req.body.EMAILID;
-            console.log(emailId, "emailId")
-            const data = await userDBDao.getUserByUsername(emailId);
-            console.log("UserDBController:checkUserExistance:: ", data)
-            if (data !== null) {
-                console.log("data is not null");
+            const doesUserExist = await userDBService.checkWhetherUserExists(emailId);
+            if (doesUserExist) {
                 return res.status(200).json({"success": true, code: 200, data: {message: "User already exists", data: true}});
             }
             else {
@@ -56,8 +43,8 @@ class UsersController {
                 return res.status(200).json({"success": false, code: 404, data: {message: "No such user found", data: false}});
             }
         }
-        catch(err: unknown) {
-            res.status(500).json({"success": false, code: 500, data: {message: catchError(err), data: false}});
+        catch(error: unknown) {
+            res.status(500).json({"success": false, code: 500, data: {message: catchError(error)}});
         }  
     }
 
@@ -76,6 +63,18 @@ class UsersController {
             res.status(500).json({"success": false, code: 500, data: {message: catchError(err)}});
         } 
     }
+
+    checkExistingPill = async (req: express.Request, res: express.Response) => {
+		try{
+			const data = await userDBDao.checkPill(req.body);
+			const status = data? 200: 401;
+			const message = data? "User authenticated" : "Authentication failed";
+			res.status(status).json({"success": false, code: status, data: {message: message, data: data}});
+		}
+		catch(e: unknown) {
+			res.status(500).json({"success": false, code: 500, data: {message: await catchError(e)}});
+		}
+	}
 }
 
 export default new UsersController();

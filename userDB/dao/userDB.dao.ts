@@ -11,6 +11,10 @@ import { catchError } from '../../common/utils/catch.util';
 import { TitleModel } from '../models/title/title.models';
 import { GenderModel } from '../models/gender/gender.models';
 
+import { CheckAuthDto } from '../dto/check.auth.dto';
+
+import { Op } from "sequelize";
+
 const log: debug.IDebugger = debug('app:in-memory-dao');
 
 class UsersDao {    
@@ -36,56 +40,65 @@ class UsersDao {
         // log(this.sequelize, "DaoSequelize");
         this.sequelize?.addModels([TitleModel]);
 		this.sequelize?.addModels([GenderModel]);
-        this.sequelize?.addModels([UserModel]); 
+        this.sequelize?.addModels([UserModel]);
 		this.sequelize?.addModels([AuthModel]);
 		
         // log(this.User);
         this.sequelize?.sync().then(() => {
             log('User table created successfully!');
             }).catch((error: unknown) => {
-            console.error('Unable to create table : ', catchError(error));
+                console.error('Unable to create table : ', catchError(error));
             });
     }
 
-    getUsers = async (): Promise<UserModel[] | string> => {
-        let users: UserModel[] = [];
+    getUsers = async (): Promise<UserModel[]> => {
         try {
-            users = await UserModel.findAll();
-            console.log("users", users);
+            const users = await UserModel.findAll();
+            return users;
         }
         catch(error: unknown) {
-            console.log(catchError(error));
+            throw new Error(await catchError(error))
         }
-        return users;
-        
     }
 
-    createUser = async (createUser: CreateUserDto): Promise<UserModel | undefined> => {
-        let createdUser: UserModel | undefined;
+    createUser = async (createUser: CreateUserDto): Promise<void> => {
         try {
-            createdUser = await this.sequelize?.transaction(async (t) => {
-                const newUser = await UserModel.create(createUser.USER, { transaction: t });
+            await this.sequelize?.transaction(async (t) => {
+                await UserModel.create(createUser.USER, { transaction: t });
                 await AuthModel.create(createUser.AUTH, { transaction: t });
-                return newUser;
               });
-            console.log(createdUser, "response");
         }
         catch(error: unknown) {
-            console.log(catchError(error));
+            throw new Error(await catchError(error));
         }
-        return createdUser;
     }
 
     getUserByUsername = async (emailId: string): Promise<UserModel | null> => {
-        let user: UserModel | null = null;
         try {
-            user = await UserModel.findOne({ where: { EMAILID: emailId} });
+            const user = await UserModel.findOne({ where: { EMAILID: emailId} });
+            return user
         }
         catch(error: unknown) {
-            console.log(catchError(error));
+            throw new Error(await catchError(error));
         }
-        return user;
     }
+
+    checkPill = async (checkAuthModel: CheckAuthDto): Promise<unknown> => {
+		let auth: AuthModel | null = null;
+		try {
+			auth = await AuthModel.findOne(
+				{ 
+					attributes: ['AUTHPILL'],
+					where: { USERNAMEHASH: checkAuthModel.USERNAMEHASH, AUTHPILL: { [Op.startsWith]: checkAuthModel.USERAUTH }} 
+				});
+			console.log(auth?.AUTHPILL);
+		}
+		catch(error: unknown) {
+			console.log(catchError(error));
+		}
+		return auth;
+        
+	} 
 }
 
 export default new UsersDao();

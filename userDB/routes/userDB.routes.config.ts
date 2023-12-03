@@ -34,6 +34,11 @@ export class LoginRoutes extends CommonRoutesConfig {
             .post(
                 UserDBController.getUser
             );
+
+        this.app.route("/authenticateUser")
+			.post(
+				UserDBController.checkExistingPill
+			);
         return this.app;
     }
 }
