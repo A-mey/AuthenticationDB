@@ -1,13 +1,11 @@
 import { catchError } from '../../common/utils/catch.util';
-import userDBDao from '../dao/userDB.dao'
+import userDBDao from '../dao/user.dao'
 import { CreateUserDto } from '../dto/create.user.dto';
 
 
-class UserDBService {
+export class UserService {
 
-    constructor() {
-
-    }
+    constructor() { }
 
     insertUserData = async (user: CreateUserDto) => {
         try {
@@ -37,5 +35,3 @@ class UserDBService {
         }
     }
 }
-
-export default new UserDBService();

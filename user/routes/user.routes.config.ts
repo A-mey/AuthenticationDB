@@ -1,11 +1,11 @@
 import { CommonRoutesConfig } from "../../common/common.routes.config";
-import UserDBController from '../controllers/userDB.controller';
-import userDBValidationMiddleware from "../middleware/userDB.validation.middleware";
+import UserDBController from '../controllers/user.controller';
+import userDBValidationMiddleware from "../middleware/user.validation.middleware";
 import express from 'express';
 import IdMiddleware from "../middleware/id.middleware"
 
 
-export class LoginRoutes extends CommonRoutesConfig {
+export class UserRoutes extends CommonRoutesConfig {
     constructor(app: express.Application) {
         super(app, 'UserRoutes');
     }

@@ -8,8 +8,8 @@ if (dotenvResult.error) {
 import * as winston from "winston";
 import * as expressWinston from "express-winston";
 import cors from "cors";
-import {CommonRoutesConfig} from "./common/common.routes.config";
-import {LoginRoutes} from "./userDB/routes/userDB.routes.config";
+import { CommonRoutesConfig } from "./common/common.routes.config";
+import { UserRoutes } from "./user/routes/user.routes.config";
 import debug from "debug";
 import bodyParser from "body-parser";
 const app: express.Application = express();
@@ -67,7 +67,7 @@ app.use(expressWinston.logger(loggerOptions));
 
 // here we are adding the UserRoutes to our array,
 // after sending the Express.js application object to have the routes added to our app!
-routes.push(new LoginRoutes(app));
+routes.push(new UserRoutes(app));
 
 app.use(expressWinston.errorLogger({
 	transports: [

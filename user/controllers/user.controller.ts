@@ -3,17 +3,23 @@ import express from 'express';
 // we use debug with a custom context as described in Part 1
 // import debug from 'debug';
 
-import userDBDao from '../dao/userDB.dao';
+import userDBDao from '../dao/user.dao';
 
 import { catchError } from '../../common/utils/catch.util';
-import userDBService from '../services/userDB.service';
+import { UserService } from '../services/user.service';
 
 // const log: debug.IDebugger = debug('app:users-controller');
-class UsersController {
+class UserController {
+
+    private userService: UserService;
+
+    constructor(userService: UserService) {
+        this.userService = userService;
+    }
 
     createNewUser = async (req: express.Request, res: express.Response) => {
         try{
-            await userDBService.insertUserData(req.body);
+            await this.userService.insertUserData(req.body);
             res.status(201).json({"success": true, code: 201, data: {message:"User added successfully"}});
         }
         catch(error: unknown) {
@@ -23,7 +29,7 @@ class UsersController {
 
     getUsers = async (_req: express.Request, res: express.Response) => {
         try{
-            const data = await userDBService.getUsers();
+            const data = await this.userService.getUsers();
             res.status(200).json({"success": false, code: 200, data: {message:"", data: data}});
         }
         catch(err: unknown) {
@@ -34,7 +40,7 @@ class UsersController {
     checkUserExistance = async (req: express.Request, res: express.Response) => {
         try {
             const emailId = req.body.EMAILID;
-            const doesUserExist = await userDBService.checkWhetherUserExists(emailId);
+            const doesUserExist = await this.userService.checkWhetherUserExists(emailId);
             if (doesUserExist) {
                 return res.status(200).json({"success": true, code: 200, data: {message: "User already exists", data: true}});
             }
@@ -77,4 +83,4 @@ class UsersController {
 	}
 }
 
-export default new UsersController();
+export default new UserController(new UserService);

@@ -1,5 +1,5 @@
 import express, { NextFunction, Request } from "express";
-import UserDBSchema from "../schema/userDB.schema";
+import UserDBSchema from "../schema/user.schema";
 // import validateSchemaServices from "../../common/services/validateSchema.services";
 import ValidateSchema from "../../common/services/schema/validate.schema"
 import compileSchema from "../../common/services/schema/compile.schema";
