@@ -2,7 +2,7 @@ import { CreateUserDto } from '../dto/create.user.dto';
 // import { PatchUserDto } from '../dto/patch.user.dto';
 // import { PutUserDto } from '../dto/put.user.dto';
 import debug from 'debug';
-import SequelizeService from '../../common/services/sequelize/sequelize.service'
+import { SequelizeService } from '../../common/services/sequelize/sequelize.service'
 import {UserModel} from '../models/users.models'
 import { Sequelize } from 'sequelize-typescript';
 import {AuthModel} from "../../Auth/models/auth.models"
@@ -19,24 +19,24 @@ const log: debug.IDebugger = debug('app:in-memory-dao');
 
 class UsersDao {    
 
-    constructor() {
+    constructor(sequelizeService: SequelizeService) {
         // let sequelize = mySqlService.getSequelize();
         // sequelize.sync().then(() => {
         //     console.log('User table created successfully!');
         //     }).catch((error: any) => {
         //     console.error('Unable to create table : ', error);
         //     });
-        
+        this.sequelizeService = sequelizeService;
         this.getSequelizeDao();
         
         
     }
 
     public sequelize: Sequelize | undefined;
-    // public User: any;
+    private sequelizeService: SequelizeService;
 
     getSequelizeDao = async (): Promise<void> => {
-        this.sequelize = await SequelizeService.getSequelize();
+        this.sequelize = await this.sequelizeService.getSequelize();
         // log(this.sequelize, "DaoSequelize");
         this.sequelize?.addModels([TitleModel]);
 		this.sequelize?.addModels([GenderModel]);
@@ -101,4 +101,4 @@ class UsersDao {
 	} 
 }
 
-export default new UsersDao();
+export default new UsersDao(new SequelizeService());

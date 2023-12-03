@@ -1,6 +1,6 @@
-import { ConnectSequelizeService } from "./connect.sequelize.service";
+import { CommonSequelizeService } from "./common.sequelize.service";
 
-export class SequelizeService extends ConnectSequelizeService {
+export class SequelizeService extends CommonSequelizeService {
 
 	constructor() {
 		super();
@@ -10,5 +10,3 @@ export class SequelizeService extends ConnectSequelizeService {
 		return this.sequelize;
 	}
 }
-
-export default new SequelizeService();

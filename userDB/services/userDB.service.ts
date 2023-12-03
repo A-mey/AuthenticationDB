@@ -4,6 +4,11 @@ import { CreateUserDto } from '../dto/create.user.dto';
 
 
 class UserDBService {
+
+    constructor() {
+
+    }
+
     insertUserData = async (user: CreateUserDto) => {
         try {
             await userDBDao.createUser(user);

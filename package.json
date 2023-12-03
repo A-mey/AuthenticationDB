@@ -11,7 +11,7 @@
     "dev": "export DEPLOY_STAGE=development && tsc && node --unhandled-rejections=strict ./dist/app.js",
     "dev-boilerplate": "export DEPLOY_STAGE=development && concurrently -k \"tsc -p ./ -w\" \"nodemon ./dist/app.js\"",
     "watch-qc": "export DEPLOY_STAGE=qc && ts-node-dev --respawn app.ts",
-    "watch-prod": "export DEPLOY_STAGE=prod && ts-node-dev --respawn app.ts"
+    "watch-prod": "export DEPLOY_STAGE=production && ts-node-dev --respawn app.ts"
   },
   "author": "ameya",
   "license": "ISC",

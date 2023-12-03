@@ -51,6 +51,7 @@ class userDBSchema {
                 }
             }
         },
+
         "checkUser": {
             "type": "object",
             "additionalProperties": false,
@@ -62,6 +63,7 @@ class userDBSchema {
                 },
             },
         },
+
         "getUserByUsername": {
             "type": "object",
             "additionalProperties": false,
@@ -71,6 +73,20 @@ class userDBSchema {
                     "type": "string",
                     "format": "email"
                 },
+            },
+        },
+
+        "authenticateUser": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["USERNAMEHASH", "USERAUTH"],
+            "properties" : {
+                "USERNAMEHASH": {
+                    "type": "string",
+                },
+                "USERAUTH": {
+                    "type": "string"
+                }
             },
         }
     }
