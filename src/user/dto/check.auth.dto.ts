@@ -1,4 +1,3 @@
-export interface CheckAuthDto {
-    USERNAMEHASH: string;
-    USERAUTH: string;
-}
+import { CheckAuth } from "../types/checkAuth.type";
+
+export interface CheckAuthDto extends CheckAuth{ }

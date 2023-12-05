@@ -3,10 +3,9 @@ import express from 'express';
 // we use debug with a custom context as described in Part 1
 // import debug from 'debug';
 
-import userDBDao from '../dao/user.dao';
-
-import { catchError } from '../../common/utils/catch.util';
+// import { catchError } from '../../common/utils/catch.util';
 import { UserService } from '../services/user.service';
+import responseTemplateConstants from '../../common/constants/response.template.constants';
 
 // const log: debug.IDebugger = debug('app:users-controller');
 class UserController {
@@ -20,20 +19,25 @@ class UserController {
     createNewUser = async (req: express.Request, res: express.Response) => {
         try{
             await this.userService.insertUserData(req.body);
-            res.status(201).json({"success": true, code: 201, data: {message:"User added successfully"}});
+            const response = responseTemplateConstants.USER_ADDED;
+            res.status(response.code).json(response);
         }
         catch(error: unknown) {
-            res.status(500).json({"success": false, code: 500, data: {message: "Something went wrong"}});
+            const response = responseTemplateConstants.DEFAULT_ERROR;
+            res.status(response.code).json(response);
         }
     }
 
     getUsers = async (_req: express.Request, res: express.Response) => {
         try{
-            const data = await this.userService.getUsers();
-            res.status(200).json({"success": false, code: 200, data: {message:"", data: data}});
+            const usersList = await this.userService.getUsers();
+            const response = responseTemplateConstants.USERS_FETCHED;
+            response.data.data = usersList;
+            res.status(response.code).json(response);
         }
-        catch(err: unknown) {
-            res.status(500).json({"success": false, code: 500, data: {message: catchError(err)}});
+        catch(error: unknown) {
+            const response = responseTemplateConstants.DEFAULT_ERROR;
+            res.status(response.code).json(response);
         }      
     }
 
@@ -41,44 +45,37 @@ class UserController {
         try {
             const emailId = req.body.EMAILID;
             const doesUserExist = await this.userService.checkWhetherUserExists(emailId);
-            if (doesUserExist) {
-                return res.status(200).json({"success": true, code: 200, data: {message: "User already exists", data: true}});
-            }
-            else {
-                console.log("data is null");
-                return res.status(200).json({"success": false, code: 404, data: {message: "No such user found", data: false}});
-            }
+            const response = doesUserExist? responseTemplateConstants.USER_EXISTS : responseTemplateConstants.USER_DOES_NOT_EXIST;
+            res.status(response.code).json(response);
         }
         catch(error: unknown) {
-            res.status(500).json({"success": false, code: 500, data: {message: catchError(error)}});
+            const response = responseTemplateConstants.DEFAULT_ERROR;
+            res.status(response.code).json(response);
         }  
     }
 
     getUser = async (req: express.Request, res: express.Response) => {
         try{
             const emailId = req.body.EMAILID;
-            const data = await userDBDao.getUserByUsername(emailId);
-            if (data) {
-                res.status(200).json({"success": true, code: 200, data: {message: "User found successfully", data: data}});
-            }
-            else {
-                res.status(400).json({"success": false, code: 404, data: {message: "No such user found"}});
-            }
+            const userData = await this.userService.getUserDetails(emailId);
+            const response = userData? responseTemplateConstants.USER_EXISTS : responseTemplateConstants.USER_DOES_NOT_EXIST;
+            res.status(response.code).json(response);
         }
-        catch(err: unknown) {
-            res.status(500).json({"success": false, code: 500, data: {message: catchError(err)}});
+        catch(error: unknown) {
+            const response = responseTemplateConstants.DEFAULT_ERROR;
+            res.status(response.code).json(response);
         } 
     }
 
     checkExistingPill = async (req: express.Request, res: express.Response) => {
 		try{
-			const data = await userDBDao.checkPill(req.body);
-			const status = data? 200: 401;
-			const message = data? "User authenticated" : "Authentication failed";
-			res.status(status).json({"success": false, code: status, data: {message: message, data: data}});
+			const authPill = await this.userService.fetchPill(req.body);
+            const response = authPill? responseTemplateConstants.PILL_EXISTS : responseTemplateConstants.PILL_DOES_NOT_EXIST;
+            res.status(response.code).json(response);
 		}
-		catch(e: unknown) {
-			res.status(500).json({"success": false, code: 500, data: {message: await catchError(e)}});
+		catch(error: unknown) {
+			const response = responseTemplateConstants.DEFAULT_ERROR;
+            res.status(response.code).json(response);
 		}
 	}
 }

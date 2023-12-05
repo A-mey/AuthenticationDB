@@ -83,7 +83,7 @@ class UsersDao {
         }
     }
 
-    checkPill = async (checkAuthModel: CheckAuthDto): Promise<unknown> => {
+    checkPill = async (checkAuthModel: CheckAuthDto): Promise<AuthModel | null> => {
 		let auth: AuthModel | null = null;
 		try {
 			auth = await AuthModel.findOne(
