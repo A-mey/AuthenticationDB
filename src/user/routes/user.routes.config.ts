@@ -25,7 +25,7 @@ export class UserRoutes extends CommonRoutesConfig {
                 UserDBController.getUsers
             );
         
-        this.app.route('users/existance')
+        this.app.route('/users/existance')
             .post(
                 UserDBController.checkUserExistance
             );
@@ -35,7 +35,7 @@ export class UserRoutes extends CommonRoutesConfig {
                 UserDBController.getUser
             );
 
-        this.app.route("/user/authentication")
+        this.app.route("/users/authentication")
 			.post(
 				UserDBController.checkExistingPill
 			);
