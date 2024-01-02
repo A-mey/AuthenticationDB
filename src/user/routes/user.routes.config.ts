@@ -15,27 +15,27 @@ export class UserRoutes extends CommonRoutesConfig {
 
         this.app.use(IdMiddleware.createRequestId);
 
-        this.app.route('/insertUser')
-            .post(
+        this.app.route('/users/user')
+            .put(
                 UserDBController.createNewUser
             );
 
-        this.app.route('/getUsers')
+        this.app.route('/users')
             .get(
                 UserDBController.getUsers
             );
         
-        this.app.route('/checkUser')
+        this.app.route('users/existance')
             .post(
                 UserDBController.checkUserExistance
             );
 
-        this.app.route('/getUserByUsername')
+        this.app.route('/users/by-username')
             .post(
                 UserDBController.getUser
             );
 
-        this.app.route("/authenticateUser")
+        this.app.route("/user/authentication")
 			.post(
 				UserDBController.checkExistingPill
 			);
